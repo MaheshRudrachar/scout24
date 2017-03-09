@@ -19,31 +19,16 @@
     <script src="http://code.jquery.com/jquery.js"></script>
     <script src="webjars/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <h1>Result</h1>
-
-<!--<p th:text="'Testing URL: ' + ${webDocument.uri}" />-->
-<!--<p th:text="'HTML version: ' + ${webDocument.htmlVersion}" />-->
-<!--<p th:text="'Title: ' + ${webDocument.title}" />-->
-<!--<p th:text="'Headings H1: ' + ${webDocument.headingTagMap.get('h1')}" />-->
-<!--<p th:text="'Headings H2: ' + ${webDocument.headingTagMap.get('h2')}" />-->
-<!--<p th:text="'Headings H3: ' + ${webDocument.headingTagMap.get('h3')}" />-->
-<!--<p th:text="'Headings H4: ' + ${webDocument.headingTagMap.get('h4')}" />-->
-<!--<p th:text="'Headings H5: ' + ${webDocument.headingTagMap.get('h5')}" />-->
-<!--<p th:text="'Headings H6: ' + ${webDocument.headingTagMap.get('h6')}" />-->
-<!--<p th:text="'Number of internal hypermedia links: ' + ${webDocument.numOfInternalLinks}" />-->
-<!--<p th:text="'Number of external hypermedia links: ' + ${webDocument.numOfExternalLinks}" />-->
-<!--<p th:text="'Contain a login form: ' + ${webDocument.hasLoginForm}" />-->
-
     <div class="panel panel-default">
         <div class="table-responsive">
-            <table id="urlContentTable"
-                   class="table table-striped table-hover table-condensed table-bordered">
+            <table class="table table-striped table-hover table-condensed table-bordered">
                 <thead>
                     <tr>
                         <th class="tableCentered">Html Version</th>
                         <th class="tableCentered">Title</th>
                         <th class="tableCentered">Headings</th>
-                        <th class="tableCentered">Int. Links</th>
-                        <th class="tableCentered">Ext. Links</th>
+                        <th class="tableCentered">Internal Links</th>
+                        <th class="tableCentered">External Links</th>
                         <th class="tableCentered">Login Form</th>
                     </tr>
                 </thead>
@@ -55,6 +40,25 @@
                         <td th:text="${webDocument.numOfInternalLinks}" />
                         <td th:text="${webDocument.numOfExternalLinks}" />
                         <td th:text="${webDocument.hasLoginForm}" />
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover table-condensed table-bordered">
+                <thead>
+                    <tr>
+                        <th class="tableCentered">Resource</th>
+                        <th class="tableCentered">HTTP Response Code </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="document: ${webDocument.linkResourceValidationMap}">
+                        <td th:text="${document.key}" />
+                        <td th:text="${document.value}" />
                     </tr>
                 </tbody>
             </table>

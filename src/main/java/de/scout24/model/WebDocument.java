@@ -13,6 +13,7 @@ public class WebDocument {
     private int numOfInternalLinks;
     private int numOfExternalLinks;
     private boolean hasLoginForm;
+    private Map<String, Integer> linkResourceValidationMap = new HashMap<>();
 
     public String getUri() {
         return uri;
@@ -68,5 +69,13 @@ public class WebDocument {
 
     public void setHasLoginForm(boolean hasLoginForm) {
         this.hasLoginForm = hasLoginForm;
+    }
+
+    public Map<String, Integer> getLinkResourceValidationMap() {
+        return linkResourceValidationMap;
+    }
+
+    public void setLinkResourceValidationMap(Map<String, Integer> linkResourceValidationMap) {
+        this.linkResourceValidationMap = linkResourceValidationMap;
     }
 }
