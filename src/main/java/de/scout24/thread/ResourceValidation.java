@@ -34,20 +34,19 @@ public class ResourceValidation implements Callable<Map<String, Integer>> {
         return resourceValidationMap;
     }
 
-    public static int getResponseCode(String urlString) throws MalformedURLException, IOException {
-        URL u = new URL(urlString);
-        if (u.openConnection() instanceof HttpURLConnection) {
-            HttpURLConnection huc = (HttpURLConnection) u.openConnection();
-            /*
-             * set request method head and follow redirects to false
-             */
-            huc.setRequestMethod("HEAD");
-            HttpURLConnection.setFollowRedirects(false);
+    public static int getResponseCode(String resource) throws IOException {
 
-            huc.connect();
-            return huc.getResponseCode();
+        URL url = new URL(resource);
+
+        if (url.openConnection() instanceof HttpURLConnection) {
+            HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+            connection.setRequestMethod("HEAD");
+            connection.setInstanceFollowRedirects(false);
+            HttpURLConnection.setFollowRedirects(false);
+            connection.connect();
+            return connection.getResponseCode();
         }
-        return 0;
+        return -1;
     }
 
 }

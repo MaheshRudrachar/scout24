@@ -65,20 +65,19 @@ public class HtmlAnalyzerController {
 
         Map<String, Integer> resourceValidationMap = new HashMap<>();
 
-        //Consider performance here, use ExecutorService as multi-thread pool to check all the resources
-        ExecutorService executor = Executors.newFixedThreadPool(10);
+        //Consider performance here, I use ExecutorService as multi-thread pool to check all the resources
+        final int numOfThread = 9; //thread pool size set to (No. CPU + 1) is optimal on average.
+        ExecutorService executor = Executors.newFixedThreadPool(numOfThread);
 
-        //create a list to hold the Future object associated with Callable
+        //Create a list to hold the Future object associated with Callable
         List<FutureTask<Map<String, Integer>>> futureTaskList = new ArrayList<>();
 
-        //use Guava Lists.partition to partition resource list into subsets
-        List<List<String>> subSets = Lists.partition(resourceList, 10);
+        //Use Guava Lists.partition to partition resource list into subsets. Amazing!
+        List<List<String>> subSets = Lists.partition(resourceList, numOfThread);
 
         for (List<String> subList: subSets) {
             ResourceValidation task = new ResourceValidation(subList);
             FutureTask<Map<String, Integer>> futureTask = new FutureTask<>(task);
-
-            //submit Callable tasks to be executed by thread pool
             executor.submit(futureTask);
             futureTaskList.add(futureTask);
         }
