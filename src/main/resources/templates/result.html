@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Handling Form Submission</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Result</h1>
+
+<p th:text="'Testing URL: ' + ${webDocument.uri}" />
+<p th:text="'HTML version: ' + ${webDocument.htmlVersion}" />
+<p th:text="'Title: ' + ${webDocument.title}" />
+<p th:text="'Headings H1: ' + ${webDocument.headingTagMap.get('h1')}" />
+<p th:text="'Headings H2: ' + ${webDocument.headingTagMap.get('h2')}" />
+<p th:text="'Headings H3: ' + ${webDocument.headingTagMap.get('h3')}" />
+<p th:text="'Headings H4: ' + ${webDocument.headingTagMap.get('h4')}" />
+<p th:text="'Headings H5: ' + ${webDocument.headingTagMap.get('h5')}" />
+<p th:text="'Headings H6: ' + ${webDocument.headingTagMap.get('h6')}" />
+<p th:text="'Number of internal hypermedia links: ' + ${webDocument.numOfInternalLinks}" />
+<p th:text="'Number of external hypermedia links: ' + ${webDocument.numOfExternalLinks}" />
+<p th:text="'Contain a login form: ' + ${webDocument.hasLoginForm}" />
+
+<a href="/analyzer">Submit another message</a>
+</body>
+</html>
