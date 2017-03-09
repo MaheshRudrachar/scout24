@@ -27,15 +27,14 @@ public class HtmlAnalyzerController {
         try {
             Document doc = Jsoup.connect(webDocument.getUri()).get();
 
+            List<String> hyperLinksCollection = HtmlParserUtil.getHyperLinksCollection(doc);
+            int[] numOfLinks = HtmlParserUtil.getNumOfHyperMediaLink(doc, hyperLinksCollection);
+
             webDocument.setHtmlVersion(HtmlParserUtil.getHtmlDocType(doc));
             webDocument.setTitle(HtmlParserUtil.getTitle(doc));
             webDocument.setHeadingTagMap(HtmlParserUtil.getNumOfHeadingsByGroup(doc));
-
-            List<String> hyperLinksCollection = HtmlParserUtil.getHyperLinksCollection(doc);
-            int[] numOfLinks = HtmlParserUtil.getNumOfHyperMediaLink(doc, hyperLinksCollection);
             webDocument.setNumOfInternalLinks(numOfLinks[0]);
             webDocument.setNumOfExternalLinks(numOfLinks[1]);
-
             webDocument.setHasLoginForm(HtmlParserUtil.hasLogin(doc));
 
         } catch (IOException e) {
