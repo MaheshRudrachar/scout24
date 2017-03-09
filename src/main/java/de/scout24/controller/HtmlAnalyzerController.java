@@ -52,7 +52,7 @@ public class HtmlAnalyzerController {
         }
 
         model.addAttribute("webDocument", webDocument);
-        return "result";
+        return "main";
     }
 
     /**
@@ -67,7 +67,7 @@ public class HtmlAnalyzerController {
 
         //Consider performance here, I use ExecutorService as multi-thread pool to check all the resources
         final int numOfThread = 9; //thread pool size set to (No. CPU + 1) is optimal on average.
-        ExecutorService executor = Executors.newFixedThreadPool(numOfThread);
+        ExecutorService threadPool = Executors.newFixedThreadPool(numOfThread);
 
         //Create a list to hold the Future object associated with Callable
         List<FutureTask<Map<String, Integer>>> futureTaskList = new ArrayList<>();
@@ -78,7 +78,7 @@ public class HtmlAnalyzerController {
         for (List<String> subList: subSets) {
             ResourceValidation task = new ResourceValidation(subList);
             FutureTask<Map<String, Integer>> futureTask = new FutureTask<>(task);
-            executor.submit(futureTask);
+            threadPool.submit(futureTask);
             futureTaskList.add(futureTask);
         }
 
@@ -91,6 +91,8 @@ public class HtmlAnalyzerController {
                 e.printStackTrace();
             }
         }
+
+        threadPool.shutdown();
         return resourceValidationMap;
     }
 }
