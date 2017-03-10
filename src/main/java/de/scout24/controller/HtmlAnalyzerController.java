@@ -1,9 +1,11 @@
 package de.scout24.controller;
 
 import com.google.common.collect.Lists;
+import de.scout24.model.ErrorMessage;
 import de.scout24.model.WebDocument;
 import de.scout24.thread.ResourceValidation;
 import de.scout24.util.HtmlParserUtil;
+import org.apache.commons.validator.routines.UrlValidator;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Controller;
@@ -28,11 +30,24 @@ public class HtmlAnalyzerController {
     @GetMapping("/analyzer")
     public String inputForm(Model model) {
         model.addAttribute("webDocument", new WebDocument());
+        model.addAttribute("errorMsg", new ErrorMessage(""));
         return "main";
     }
 
     @PostMapping("/analyzer")
     public String htmlAnalyzer(@ModelAttribute WebDocument webDocument, Model model) {
+
+        ErrorMessage error = new ErrorMessage("");
+
+        String[] schemes = {"http","https"};
+        UrlValidator urlValidator = new UrlValidator(schemes);
+        boolean isValidUrl = urlValidator.isValid(webDocument.getUri());
+        if (!isValidUrl) {
+            error.setDetail("Url is invalid. Please enter a valid url begin with http(s).");
+            model.addAttribute("errorMsg", error);
+            return "main";
+        }
+
         try {
             Document doc = Jsoup.connect(webDocument.getUri()).get();
 
@@ -51,6 +66,7 @@ public class HtmlAnalyzerController {
             e.printStackTrace();
         }
 
+        model.addAttribute("errorMsg", error);
         model.addAttribute("webDocument", webDocument);
         return "main";
     }

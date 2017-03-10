@@ -20,8 +20,11 @@
 
 <div class="container">
     <h2>ImmobilienScout24 Technical Challenge</h2>
-    <h3>Please enter a URL to run analysis:</h3>
+    <h4>Please enter a URL to run analysis:</h4>
 
+    <div th:if="${errorMsg.detail != ''}" class="alert alert-danger">
+        <strong>Danger!</strong> <span th:text="${errorMsg.detail}" />
+    </div>
     <form class="form-horizontal" action="#" th:action="@{/analyzer}" th:object="${webDocument}" method="post">
         <div class="form-group">
             <label class="control-label col-sm-2">URL:</label>
