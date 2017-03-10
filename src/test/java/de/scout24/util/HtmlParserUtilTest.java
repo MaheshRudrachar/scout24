@@ -64,7 +64,7 @@ public class HtmlParserUtilTest {
     }
 
     @Test
-    public void testHasLoginFasle() {
+    public void testHasLoginFalse() {
         assertEquals("failure - did not match",
                 HtmlParserUtil.hasLogin(documentNoLogin), false);
     }
