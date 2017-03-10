@@ -42,7 +42,8 @@ After successfully running the application, you can now open your browser with t
 
 ### Application Design
 
-In this section I will explain more about the application design. However, I will only cover some tricky part of the application and explain in a more detail way.
+In this section I will explain more about the application design. 
+However, I will only cover some tricky part of the application.
 
 ##### Identify Login form
 In order to identify the login form exists in the web document or not, I look for the type of input. 
@@ -55,7 +56,7 @@ Performance matter a lot if we want to validate these resources.
 I used a `ExecutorService` as a thread-pool to improve the performance. 
 Thread size is set to 9 (`#CPU +1` is optimal on average).
       
-Each thread will take a subset of the collected Hyperlink, and check if the resource are reachable.
+Each thread will take a subset of the collected hyperlink, and check if the resource are reachable.
 The way to know this is to check the HttpResponse Code.
 
 Consider the effect of redirection, I simply set the connection object not to allow redirection.   
