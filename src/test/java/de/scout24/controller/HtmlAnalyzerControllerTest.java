@@ -20,12 +20,15 @@ public class HtmlAnalyzerControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
+    /**
+     * End point testing
+     *
+     * @throws Exception
+     */
     @Test
-    public void A_postLocation() throws Exception {
+    public void postUrlToAnalyzer() throws Exception {
         MvcResult result = this.mockMvc.perform(post("/analyzer")
                 .content("https://jsoup.org/cookbook/input/load-document-from-file")
-        )
-                .andExpect(status().isOk()).andReturn();
-
+        ).andExpect(status().isOk()).andReturn();
     }
 }
