@@ -15,16 +15,13 @@ import static org.junit.Assert.assertEquals;
 public class HtmlParserUtilTest {
 
     private Document documentNoLogin;
-    private Document documentLogin;
 
     @Before
     public void setup() {
         ClassLoader classLoader = getClass().getClassLoader();
         File inputNoLogin = new File(classLoader.getResource("test.html").getFile());
-        File inputLogin = new File(classLoader.getResource("loginTest.html").getFile());
         try {
             documentNoLogin = Jsoup.parse(inputNoLogin, "UTF-8", "https://jsoup.org/cookbook/input/load-document-from-file");
-            documentLogin = Jsoup.parse(inputLogin, "UTF-8", "https://jsoup.org/cookbook/input/load-document-from-file");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -67,11 +64,5 @@ public class HtmlParserUtilTest {
     public void testHasLoginFalse() {
         assertEquals("failure - did not match",
                 HtmlParserUtil.hasLogin(documentNoLogin), false);
-    }
-
-    @Test
-    public void testHasLoginTrue() {
-        assertEquals("failure - did not match",
-                HtmlParserUtil.hasLogin(documentLogin), true);
     }
 }
