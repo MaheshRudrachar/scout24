@@ -96,7 +96,6 @@ public class HtmlParserUtil {
     }
 
     /**
-     *
      * hypermedia links:
      * 1. get all the href tag
      * 2. check if domain match to count the number of external and internal
@@ -105,7 +104,6 @@ public class HtmlParserUtil {
      *      3.b: reachable result will be true or false
      *      3.c: information on unreachable link
      * 4. use thread pool to generate n thread to increase performance
-     * 5. something else???
      *
      * @param doc
      * @param hyperlinkCollection
@@ -142,10 +140,7 @@ public class HtmlParserUtil {
     }
 
     /**
-     * login form:
-     * 1. login form will contain a type=password
-     * 2. wording login?
-     * 3. others
+     * Check if the web document has a login form by checking the input type = password
      *
      * @param doc
      * @return
